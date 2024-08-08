@@ -1,0 +1,109 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Default Local Group
+  m_EditorClassIdentifier: 
+  m_GroupName: Default Local Group
+  m_Data:
+    m_SerializedData: []
+  m_GUID: b041060b914f24ddd837a8f3a969d234
+  m_SerializeEntries:
+  - m_GUID: 7898d798cbaf849f9875ce0dc26dba2a
+    m_Address: Assets/AddressableAssets/CardImage/boys_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48ed70005e4824dd5ac8f9976eb68c4f
+    m_Address: Assets/AddressableAssets/CardImage/boys_05.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 465687373ac2d41a48aee82b1a9c5ac8
+    m_Address: Assets/AddressableAssets/CardImage/girls_01.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad0963c3f174b49c492cf167caf7f593
+    m_Address: Assets/AddressableAssets/CardImage/boys_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 34e90713205ef409d90afa67221bacaf
+    m_Address: Assets/AddressableAssets/CardImage/girls_05.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe9646cca3032418abba3675f9d23570
+    m_Address: Assets/AddressableAssets/CardImage/girls_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64105c231cd474198965ea32f9a389a2
+    m_Address: Assets/AddressableAssets/CardImage/boys_02.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6978a45e51c2543429d852494fead778
+    m_Address: Assets/AddressableAssets/CardImage/girls_04.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f0d85c9fb320f48f8905d863197b2a08
+    m_Address: Assets/AddressableAssets/CardImage/boys_04.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a321abeb44a0f44d7bfcd837c54b2d54
+    m_Address: Assets/AddressableAssets/CardImage/girls_03.png
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c1053a9255d234b01bb4d9ebc73e7da2
+    m_Address: Assets/Prefabs/CardCell.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2cda990e2423bbf4892e6590ba056729
+    m_Address: Assets/Scenes/TitleScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1cb0e66bbb84a4c949db88b99cc9ed02
+    m_Address: Assets/Scenes/MainScene.unity
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a345dce70b7f04d8fbbea203be381a92
+    m_Address: Assets/Prefabs/NextButton.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - default
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 9e84de575e71b47378a5901d600efaf4, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 63dd5ba1d11f244228da1df70d87673a, type: 2}
+    - {fileID: 11400000, guid: e6761b3c06e6d4ce78dd4ce7cb6f602f, type: 2}

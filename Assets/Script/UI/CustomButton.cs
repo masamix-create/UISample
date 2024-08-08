@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Script.UI
 {
     [RequireComponent(typeof(ObservableEventTrigger))]
-    public sealed class CustomButton : MonoBehaviour
+    public class CustomButton : MonoBehaviour
     {
         private ObservableEventTrigger _observableEventTrigger;
 
