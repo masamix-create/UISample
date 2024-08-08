@@ -35,7 +35,7 @@ public class AnimatedDialog : MonoBehaviour
     
     private void Start()
     {
-        closeButton.OnButtonClicked
+        closeButton.OnClickAsObservable
             .Subscribe(_ => Close())
             .AddTo(this.gameObject);
     }

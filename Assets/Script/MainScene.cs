@@ -17,7 +17,7 @@ namespace Script
         // Start is called before the first frame update
         private void Start()
         {
-            dialogButton.OnButtonClicked
+            dialogButton.OnClickAsObservable
                 .Subscribe(_ =>
                 {
                     GameObject dialog = Instantiate(dialogPrefabObj, Vector3.zero, Quaternion.identity);

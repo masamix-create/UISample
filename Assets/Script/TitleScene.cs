@@ -24,7 +24,7 @@ namespace Script
                     _nextButton = Instantiate(obj, canvas.transform).GetComponent<CustomButton>();
                     
                     //取得したボタン押下時に次のシーン遷移を設定
-                    _nextButton.OnButtonClicked
+                    _nextButton.OnClickAsObservable
                         .Subscribe(_ => { LoadScene(); })
                         .AddTo(this.gameObject);
                 },

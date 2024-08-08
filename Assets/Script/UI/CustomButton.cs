@@ -1,45 +1,15 @@
 using System;
 using UniRx;
-using UniRx.Triggers;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Script.UI
 {
-    [RequireComponent(typeof(ObservableEventTrigger))]
-    public class CustomButton : MonoBehaviour
+    /// <summary>
+    /// カスタムボタンクラス。ボタンのクリック、押下、リリースイベントをObservableとして提供します。
+    /// </summary>
+    public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
     {
-        private ObservableEventTrigger _observableEventTrigger;
-
-        /// <summary>
-        /// ボタンクリック時
-        /// </summary>
-        public IObservable<Unit> OnButtonClicked => _observableEventTrigger
-            .OnPointerClickAsObservable().AsUnitObservable().Where(_ => _isActiveRP.Value);
-
-        /// <summary>
-        /// ボタンを押した時
-        /// </summary>
-        public IObservable<Unit> OnButtonPressed => _observableEventTrigger
-            .OnPointerDownAsObservable().AsUnitObservable().Where(_ => _isActiveRP.Value);
-
-        /// <summary>
-        /// ボタンを離した時
-        /// </summary>
-        public IObservable<Unit> OnButtonReleased => _observableEventTrigger
-            .OnPointerUpAsObservable().AsUnitObservable().Where(_ => _isActiveRP.Value);
-
-        /// <summary>
-        /// ボタンの領域にカーソルが入った時
-        /// </summary>
-        public IObservable<Unit> OnButtonEntered => _observableEventTrigger
-            .OnPointerEnterAsObservable().AsUnitObservable().Where(_ => _isActiveRP.Value);
-
-        /// <summary>
-        /// ボタンの領域からカーソルが出た時
-        /// </summary>
-        public IObservable<Unit> OnButtonExited => _observableEventTrigger
-            .OnPointerExitAsObservable().AsUnitObservable().Where(_ => _isActiveRP.Value);
-
         /// <summary>
         /// ボタンのアクティブ状態を保持するReactiveProperty
         /// </summary>
@@ -47,31 +17,83 @@ namespace Script.UI
 
         private readonly ReactiveProperty<bool> _isActiveRP = new(true);
 
-        private void OnDestroy()
-        {
-            _isActiveRP.Dispose();
-        }
-
-        private void Awake()
-        {
-            _observableEventTrigger = GetComponent<ObservableEventTrigger>();
-        }
-
         /// <summary>
         /// ボタンのアクティブ状態を取得する
         /// </summary>
+        /// <returns>ボタンの現在のアクティブ状態</returns>
         public bool GetIsActive() => _isActiveRP.Value;
+        
+        private readonly Subject<PointerEventData> _onClickSubject = new Subject<PointerEventData>();
+        private readonly Subject<PointerEventData> _onPointerDownSubject = new Subject<PointerEventData>();
+        private readonly Subject<PointerEventData> _onPointerUpSubject = new Subject<PointerEventData>();
 
         /// <summary>
-        /// アクティブ状態を変更する
+        /// ボタンがクリックされたときのイベントをObservableとして公開
         /// </summary>
+        public IObservable<PointerEventData> OnClickAsObservable => _onClickSubject.AsObservable();
+
+        /// <summary>
+        /// ボタンが押されたときのイベントをObservableとして公開
+        /// </summary>
+        public IObservable<PointerEventData> OnPointerDownAsObservable => _onPointerDownSubject.AsObservable();
+
+        /// <summary>
+        /// ボタンが放されたときのイベントをObservableとして公開
+        /// </summary>
+        public IObservable<PointerEventData> OnPointerUpAsObservable => _onPointerUpSubject.AsObservable();
+
+        /// <summary>
+        /// ボタンがクリックされたときに呼び出されるメソッド
+        /// </summary>
+        /// <param name="eventData">クリックイベントのデータ</param>
+        public void OnPointerClick(PointerEventData eventData)
+        {
+            if (IsActiveRP.Value)
+            {
+                _onClickSubject.OnNext(eventData);
+            }
+        }
+
+        /// <summary>
+        /// ボタンが押されたときに呼び出されるメソッド
+        /// </summary>
+        /// <param name="eventData">押下イベントのデータ</param>
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            if (IsActiveRP.Value)
+            {
+                _onPointerDownSubject.OnNext(eventData);
+            }
+        }
+
+        /// <summary>
+        /// ボタンが放されたときに呼び出されるメソッド
+        /// </summary>
+        /// <param name="eventData">放したイベントのデータ</param>
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            if (IsActiveRP.Value)
+            {
+                _onPointerUpSubject.OnNext(eventData);
+            }
+        }
+
+        private void OnDestroy()
+        {
+            _onClickSubject.OnCompleted();
+            _onPointerDownSubject.OnCompleted();
+            _onPointerUpSubject.OnCompleted();
+            
+            _isActiveRP.Dispose();
+        }
+
+        /// <summary>
+        /// ボタンのアクティブ状態を変更するメソッド
+        /// </summary>
+        /// <param name="isActive">新しいアクティブ状態</param>
         public void SetActive(bool isActive)
         {
             _isActiveRP.Value = isActive;
         }
-
-        // Start is called before the first frame update
-
-        // Update is called once per frame
     }
 }

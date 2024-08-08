@@ -20,11 +20,11 @@ namespace Script.UI
         {
             _button = GetComponent<CustomButton>();
             
-            _button.OnButtonPressed
+            _button.OnPointerDownAsObservable
                 .Subscribe(_ => SetScale(PressedScale))
                 .AddTo(this.gameObject);
 
-            _button.OnButtonReleased
+            _button.OnPointerUpAsObservable
                 .Subscribe(_ => SetScale(DefaultScale))
                 .AddTo(this.gameObject);
             
