@@ -7,25 +7,16 @@ namespace Script.UI
 {
     /// <summary>
     /// カスタムボタンクラス。ボタンのクリック、押下、リリースイベントをObservableとして提供します。
+    /// また、ボタンはアクティブかどうかをフラグで管理しており、状態の変化もObservableとして提供します。
     /// </summary>
     public class CustomButton : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler
     {
         /// <summary>
         /// ボタンのアクティブ状態を保持するReactiveProperty
         /// </summary>
-        public IReadOnlyReactiveProperty<bool> IsActiveRP => _isActiveRP;
+        public IReadOnlyReactiveProperty<bool> IsActive => _isActiveReactiveProperty;
 
-        private readonly ReactiveProperty<bool> _isActiveRP = new(true);
-
-        /// <summary>
-        /// ボタンのアクティブ状態を取得する
-        /// </summary>
-        /// <returns>ボタンの現在のアクティブ状態</returns>
-        public bool GetIsActive() => _isActiveRP.Value;
-        
-        private readonly Subject<PointerEventData> _onClickSubject = new Subject<PointerEventData>();
-        private readonly Subject<PointerEventData> _onPointerDownSubject = new Subject<PointerEventData>();
-        private readonly Subject<PointerEventData> _onPointerUpSubject = new Subject<PointerEventData>();
+        private readonly ReactiveProperty<bool> _isActiveReactiveProperty = new(true);
 
         /// <summary>
         /// ボタンがクリックされたときのイベントをObservableとして公開
@@ -35,12 +26,16 @@ namespace Script.UI
         /// <summary>
         /// ボタンが押されたときのイベントをObservableとして公開
         /// </summary>
-        public IObservable<PointerEventData> OnPointerDownAsObservable => _onPointerDownSubject.AsObservable();
+        public IObservable<PointerEventData> OnDownAsObservable => _onPointerDownSubject.AsObservable();
 
         /// <summary>
         /// ボタンが放されたときのイベントをObservableとして公開
         /// </summary>
-        public IObservable<PointerEventData> OnPointerUpAsObservable => _onPointerUpSubject.AsObservable();
+        public IObservable<PointerEventData> OnUpAsObservable => _onPointerUpSubject.AsObservable();
+
+        private readonly Subject<PointerEventData> _onClickSubject = new Subject<PointerEventData>();
+        private readonly Subject<PointerEventData> _onPointerDownSubject = new Subject<PointerEventData>();
+        private readonly Subject<PointerEventData> _onPointerUpSubject = new Subject<PointerEventData>();
 
         /// <summary>
         /// ボタンがクリックされたときに呼び出されるメソッド
@@ -48,7 +43,7 @@ namespace Script.UI
         /// <param name="eventData">クリックイベントのデータ</param>
         public void OnPointerClick(PointerEventData eventData)
         {
-            if (IsActiveRP.Value)
+            if (IsActive.Value)
             {
                 _onClickSubject.OnNext(eventData);
             }
@@ -60,7 +55,7 @@ namespace Script.UI
         /// <param name="eventData">押下イベントのデータ</param>
         public void OnPointerDown(PointerEventData eventData)
         {
-            if (IsActiveRP.Value)
+            if (IsActive.Value)
             {
                 _onPointerDownSubject.OnNext(eventData);
             }
@@ -72,7 +67,7 @@ namespace Script.UI
         /// <param name="eventData">放したイベントのデータ</param>
         public void OnPointerUp(PointerEventData eventData)
         {
-            if (IsActiveRP.Value)
+            if (IsActive.Value)
             {
                 _onPointerUpSubject.OnNext(eventData);
             }
@@ -84,7 +79,7 @@ namespace Script.UI
             _onPointerDownSubject.OnCompleted();
             _onPointerUpSubject.OnCompleted();
             
-            _isActiveRP.Dispose();
+            _isActiveReactiveProperty.Dispose();
         }
 
         /// <summary>
@@ -93,7 +88,7 @@ namespace Script.UI
         /// <param name="isActive">新しいアクティブ状態</param>
         public void SetActive(bool isActive)
         {
-            _isActiveRP.Value = isActive;
+            _isActiveReactiveProperty.Value = isActive;
         }
     }
 }
